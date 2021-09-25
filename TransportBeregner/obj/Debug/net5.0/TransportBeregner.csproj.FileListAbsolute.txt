@@ -13,3 +13,4 @@ C:\Dev\test\TransportBeregner\TransportBeregner\obj\Debug\net5.0\TransportBeregn
 C:\Dev\test\TransportBeregner\TransportBeregner\obj\Debug\net5.0\ref\TransportBeregner.dll
 C:\Dev\test\TransportBeregner\TransportBeregner\obj\Debug\net5.0\TransportBeregner.pdb
 C:\Dev\test\TransportBeregner\TransportBeregner\obj\Debug\net5.0\TransportBeregner.genruntimeconfig.cache
+C:\Dev\test\TransportBeregner\TransportBeregner\obj\Debug\net5.0\TransportBeregner.csprojAssemblyReference.cache
