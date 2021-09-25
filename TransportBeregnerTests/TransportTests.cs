@@ -11,12 +11,12 @@ namespace TransportTests
         {
             return new TransportPriceParameter
             {
-                _kmLimit = 5,
-                _weightLimit = 10,
-                _minPrice = 0,
-                _priceLessThanKmLimit = 50,
-                _priceLessThanWeightLimit = 75,
-                _priceMax = 100
+                LengthLimit = 5,
+                WeightLimit = 10,
+                MinPrice = 0,
+                PriceLessThanLengthLimit = 50,
+                PriceLessThanWeightLimit = 75,
+                PriceMax = 100
             };
         }
 
@@ -31,7 +31,7 @@ namespace TransportTests
         {
             // Arrange
             var parameter = Setup();
-            var sut = new TransportBeregner(parameter );
+            var sut = new TransportBeregner(parameter);
 
             // Act
             var result = sut.TransportCalculator(transportInKm, weight);
@@ -40,7 +40,39 @@ namespace TransportTests
             Assert.Equal(expectedResult, result);
         }
 
-     
+        [Theory]
+        [InlineData(5, 10, 0, 50, 75, 100, 4, 9, 0)]
+        [InlineData(5, 10, 0, 50, 75, 100, 14, 19, 100)]
+        [InlineData(5, 10, 300, 50, 75, 1000, 100, 10, 1300)]  // start gebyr på 300
+        [InlineData(0, 5, 100, 200, 300, 500, 100, 1000, 600)]  // start gebyr 100
+        public void TransportPrice_is_Correct_When_Altering_Limits(int kmLimit,
+                                                                   int weightLimit,
+                                                                   int minPrice,
+                                                                   int priceLessThanLengthLimit,
+                                                                   int priceLessThanWeightLimit,
+                                                                   int priceMax,
+                                                                   int length,
+                                                                   int weight,
+                                                                   int expectedResult)
+        {
+            // Arrange
+            var parameter = new TransportPriceParameter
+            {
+                LengthLimit = kmLimit,
+                WeightLimit = weightLimit,
+                MinPrice = minPrice,
+                PriceLessThanLengthLimit = priceLessThanLengthLimit,
+                PriceLessThanWeightLimit = priceLessThanWeightLimit,
+                PriceMax = priceMax
+            };
+            var sut = new TransportBeregner(parameter);
+
+            // Act
+            var result = sut.TransportCalculator(length, weight);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
 
     }
 }
