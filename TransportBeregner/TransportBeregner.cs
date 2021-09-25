@@ -16,37 +16,24 @@ namespace Transport
 
         public int TransportCalculator(int transportInKm, int weight)
         {
-            // Sætter transport summen til at være 0,- kr default for km < 5 og vægt < 10
+            
             int sum = _limitValues.MinPrice;
 
-            if (transportInKm < _limitValues.LengthLimit  && weight >= _limitValues.WeightLimit )
+            if (transportInKm < _limitValues.LimitLength  && weight >= _limitValues.LimitWeight )
             {
-                sum += _limitValues.PriceLessThanLengthLimit ;//50 
+                sum += _limitValues.LimitLengthPrice ;  
             }
-            if (transportInKm >= _limitValues.LengthLimit && weight < _limitValues.WeightLimit)
+            if (transportInKm >= _limitValues.LimitLength && weight < _limitValues.LimitWeight)
             {
-                sum += _limitValues.PriceLessThanWeightLimit;// 75; 
+                sum += _limitValues.LimitWeigntPrice; ; 
             }
-            if (transportInKm >= _limitValues.LengthLimit && weight >= _limitValues.WeightLimit)
+            if (transportInKm >= _limitValues.LimitLength && weight >= _limitValues.LimitWeight)
             {
-                sum += _limitValues.PriceMax; // 100
+                sum += _limitValues.MaxPrice;  
             }
 
             return sum;
         }
-
-    }
-
-
-    public class TransportPriceParameter
-    {
-        public  int LengthLimit;
-        public  int WeightLimit;
-
-        public int MinPrice;
-        public int PriceLessThanLengthLimit;
-        public int PriceLessThanWeightLimit;
-        public int PriceMax;
 
     }
 }
